@@ -11852,7 +11852,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Calculate number of students</span>
@@ -11870,7 +11870,7 @@ div#notebook {
 
 <span class="c1"># TODO: Calculate graduation rate</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
-<span class="n">grad_rate</span> <span class="o">=</span> <span class="n">n_passed</span><span class="o">/</span><span class="n">n_students</span>
+<span class="n">grad_rate</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_passed</span><span class="o">/</span><span class="n">n_students</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 
 <span class="c1"># Print the results</span>
 <span class="k">print</span> <span class="s2">&quot;Total number of students: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
@@ -11894,7 +11894,7 @@ div#notebook {
 Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
-Graduation rate of the class: 0.67%
+Graduation rate of the class: 67.09%
 </pre>
 </div>
 </div>
@@ -12080,7 +12080,7 @@ Name: passed, dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import any additional functionality you may need here</span>
@@ -12093,7 +12093,7 @@ Name: passed, dtype: object
 <span class="n">num_test</span> <span class="o">=</span> <span class="n">X_all</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_train</span>
 
 <span class="c1"># TODO: Shuffle and split the dataset into the number of training and testing points above</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">num_train</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="n">num_train</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_all</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># Show the results of the split</span>
 <span class="k">print</span> <span class="s2">&quot;Training set has {} samples.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -12214,7 +12214,7 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">train_classifier</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -12287,13 +12287,19 @@ Testing set has 95 samples.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import the three supervised learning models from sklearn</span>
 <span class="c1"># from sklearn import model_A</span>
 <span class="c1"># from sklearn import model_B</span>
 <span class="c1"># from skearln import model_C</span>
+
+<span class="c1">#Normalize the features</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Normalizer</span>
+<span class="n">normer</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">normer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">normer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># TODO: Initialize the three models</span>
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
@@ -12303,10 +12309,10 @@ Testing set has 95 samples.
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 <span class="c1">#Default for AdaBoostClassifier is SAMME.R, 50 estimators and learning rate 1.0</span>
 <span class="c1">#Default for the base estimator DecisionTreeClassifier is min_samples_split = 2, and gini as criterion</span>
-<span class="n">clf_B</span> <span class="o">=</span>  <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">clf_B</span> <span class="o">=</span>  <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
-<span class="n">clf_C</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="n">clf_C</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># TODO: Set up the training set sizes</span>
 <span class="n">X_train_100</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span>
@@ -12323,17 +12329,17 @@ Testing set has 95 samples.
 <span class="c1">#X_train, X_test, y_train, y_test</span>
 
 <span class="c1"># TODO: Execute the &#39;train_predict&#39; function for each classifier and each training set size</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_A</span><span class="p">,</span> <span class="n">X_train_100</span><span class="p">,</span> <span class="n">y_train_100</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_A</span><span class="p">,</span> <span class="n">X_train_200</span><span class="p">,</span> <span class="n">y_train_200</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_A</span><span class="p">,</span> <span class="n">X_train_300</span><span class="p">,</span> <span class="n">y_train_300</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_B</span><span class="p">,</span> <span class="n">X_train_100</span><span class="p">,</span> <span class="n">y_train_100</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_B</span><span class="p">,</span> <span class="n">X_train_200</span><span class="p">,</span> <span class="n">y_train_200</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_B</span><span class="p">,</span> <span class="n">X_train_300</span><span class="p">,</span> <span class="n">y_train_300</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">clf</span> <span class="ow">in</span> <span class="p">[</span><span class="n">clf_A</span><span class="p">,</span> <span class="n">clf_B</span><span class="p">,</span> <span class="n">clf_C</span><span class="p">]:</span>
 
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_C</span><span class="p">,</span> <span class="n">X_train_100</span><span class="p">,</span> <span class="n">y_train_100</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_C</span><span class="p">,</span> <span class="n">X_train_200</span><span class="p">,</span> <span class="n">y_train_200</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">train_predict</span><span class="p">(</span><span class="n">clf_C</span><span class="p">,</span> <span class="n">X_train_300</span><span class="p">,</span> <span class="n">y_train_300</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="c1"># show the estimator type</span>
+    <span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">{}: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+
+    <span class="c1"># TODO: loop thru training sizes</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]:</span>
+
+        <span class="c1"># fit model using &quot;n&quot; training data points (i.e., 100, 200, or 300)</span>
+        <span class="n">train_predict</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 
 
 
@@ -12351,60 +12357,69 @@ Testing set has 95 samples.
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Training a GaussianNB using a training set size of 100. . .
-Trained model in 0.0010 seconds
-Made predictions in 0.0007 seconds.
-F1 score for training set: 0.8467.
-Made predictions in 0.0003 seconds.
-F1 score for test set: 0.8029.
+<pre>
+GaussianNB: 
+
+Training a GaussianNB using a training set size of 100. . .
+Trained model in 0.0006 seconds
+Made predictions in 0.0002 seconds.
+F1 score for training set: 0.7939.
+Made predictions in 0.0002 seconds.
+F1 score for test set: 0.6870.
 Training a GaussianNB using a training set size of 200. . .
-Trained model in 0.0007 seconds
-Made predictions in 0.0003 seconds.
-F1 score for training set: 0.8188.
-Made predictions in 0.0003 seconds.
-F1 score for test set: 0.7097.
+Trained model in 0.0006 seconds
+Made predictions in 0.0002 seconds.
+F1 score for training set: 0.8045.
+Made predictions in 0.0002 seconds.
+F1 score for test set: 0.7176.
 Training a GaussianNB using a training set size of 300. . .
-Trained model in 0.0008 seconds
+Trained model in 0.0007 seconds
 Made predictions in 0.0004 seconds.
-F1 score for training set: 0.8038.
-Made predictions in 0.0003 seconds.
-F1 score for test set: 0.7634.
-Training a AdaBoostClassifier using a training set size of 100. . .
-Trained model in 0.1089 seconds
-Made predictions in 0.0042 seconds.
-F1 score for training set: 1.0000.
-Made predictions in 0.0041 seconds.
-F1 score for test set: 0.6970.
-Training a AdaBoostClassifier using a training set size of 200. . .
-Trained model in 0.1114 seconds
-Made predictions in 0.0050 seconds.
-F1 score for training set: 1.0000.
-Made predictions in 0.0041 seconds.
-F1 score for test set: 0.7353.
-Training a AdaBoostClassifier using a training set size of 300. . .
-Trained model in 0.1124 seconds
-Made predictions in 0.0056 seconds.
-F1 score for training set: 0.9951.
-Made predictions in 0.0041 seconds.
+F1 score for training set: 0.8145.
+Made predictions in 0.0002 seconds.
 F1 score for test set: 0.7442.
+
+AdaBoostClassifier: 
+
+Training a AdaBoostClassifier using a training set size of 100. . .
+Trained model in 0.1193 seconds
+Made predictions in 0.0041 seconds.
+F1 score for training set: 1.0000.
+Made predictions in 0.0041 seconds.
+F1 score for test set: 0.6870.
+Training a AdaBoostClassifier using a training set size of 200. . .
+Trained model in 0.1376 seconds
+Made predictions in 0.0049 seconds.
+F1 score for training set: 1.0000.
+Made predictions in 0.0041 seconds.
+F1 score for test set: 0.6923.
+Training a AdaBoostClassifier using a training set size of 300. . .
+Trained model in 0.1594 seconds
+Made predictions in 0.0055 seconds.
+F1 score for training set: 1.0000.
+Made predictions in 0.0040 seconds.
+F1 score for test set: 0.7313.
+
+SVC: 
+
 Training a SVC using a training set size of 100. . .
-Trained model in 0.0011 seconds
-Made predictions in 0.0007 seconds.
-F1 score for training set: 0.8777.
-Made predictions in 0.0006 seconds.
-F1 score for test set: 0.7746.
+Trained model in 0.0009 seconds
+Made predictions in 0.0005 seconds.
+F1 score for training set: 0.7952.
+Made predictions in 0.0005 seconds.
+F1 score for test set: 0.8050.
 Training a SVC using a training set size of 200. . .
-Trained model in 0.0029 seconds
-Made predictions in 0.0019 seconds.
-F1 score for training set: 0.8889.
-Made predictions in 0.0009 seconds.
-F1 score for test set: 0.7919.
+Trained model in 0.0024 seconds
+Made predictions in 0.0018 seconds.
+F1 score for training set: 0.7879.
+Made predictions in 0.0010 seconds.
+F1 score for test set: 0.8050.
 Training a SVC using a training set size of 300. . .
-Trained model in 0.0055 seconds
-Made predictions in 0.0044 seconds.
-F1 score for training set: 0.8761.
-Made predictions in 0.0014 seconds.
-F1 score for test set: 0.7838.
+Trained model in 0.0049 seconds
+Made predictions in 0.0037 seconds.
+F1 score for training set: 0.8024.
+Made predictions in 0.0012 seconds.
+F1 score for test set: 0.8050.
 </pre>
 </div>
 </div>
@@ -12579,7 +12594,7 @@ F1 score for test set: 0.7838.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: SVM is a popular algorithm for classification problem. It works by maximizing the difference between classified classes. In the context of this problem, it tries to find a decision boundary that maximizes the chance of correctly classifying the samples in the training set and it is very efficient in doing so by only caring about the samples that are closest to the decision boundary.</strong></p>
+<p><strong>Answer: SVM is a popular algorithm for classification problem. The SVM takes data about previous students (age, gender, family, etc), and uses them to create a function that draws a boundary between the students who passed and those who didn't. The boundary should be drawn so as to maximize the difference between students who passed and who didn't while ensuring that majority of samples are correctly classified. Often, though, it's not easy to draw a decision boundary in low dimensions, so the SVM separates the passing and failing students by transforming the input space into a higher dimension feature space. Using this function created with students we already know passed or not, the SVM can look at new students' data and predict whether the student needs intervention based on the student's various features(age, gender, family, etc). SVM is very efficient for classification problem since it only cares about the samples that are closer to the decision boundary.</strong></p>
 
 </div>
 </div>
@@ -12610,7 +12625,7 @@ F1 score for test set: 0.7838.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;GridSearchCV&#39; and &#39;make_scorer&#39;</span>
@@ -12621,24 +12636,34 @@ F1 score for test set: 0.7838.
 <span class="c1">#The gamma parameters can be seen as the inverse of the radius of influence of samples selected by the model as support vectors.</span>
 <span class="c1">#The higher the gamma, the less influence the further points from decision boundary have</span>
 <span class="c1">#C is the tradeoff between smoothness and correctness of classification for traning dataset</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span>
+
+<span class="c1">#Normalize the features</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Normalizer</span>
+<span class="n">normer</span> <span class="o">=</span> <span class="n">Normalizer</span><span class="p">()</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">normer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">normer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># TODO: Initialize the classifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># TODO: Make an f1 scoring function using &#39;make_scorer&#39; </span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
-<span class="n">f_one_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">)</span>
+<span class="n">f_one_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">)</span>
 
 <span class="c1"># TODO: Perform grid search on the classifier using the f1_scorer as the scoring method</span>
-<span class="n">grid_obj</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f_one_scorer</span><span class="p">)</span>
+<span class="n">grid_obj</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f_one_scorer</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># TODO: Fit the grid search object to the training data and find the optimal parameters</span>
 <span class="n">grid_obj</span> <span class="o">=</span> <span class="n">grid_obj</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_300</span><span class="p">,</span> <span class="n">y_train_300</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="k">print</span> <span class="s2">&quot;grid scores&quot;</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">grid_obj</span><span class="o">.</span><span class="n">grid_scores_</span><span class="p">))</span>
 
 <span class="c1"># Get the estimator</span>
 <span class="n">clf</span> <span class="o">=</span> <span class="n">grid_obj</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="k">print</span> <span class="s2">&quot;best classifier parameters&quot;</span>
 <span class="k">print</span> <span class="n">clf</span>
 
 <span class="c1"># Report the final F1 score for training and testing after parameter tuning</span>
@@ -12656,14 +12681,403 @@ F1 score for test set: 0.7838.
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>SVC(C=0.1, cache_size=200, class_weight=None, coef0=0.0,
+<pre>grid scores
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>parameters</th>
+      <th>mean_validation_score</th>
+      <th>cv_validation_scores</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{u'kernel': u'linear', u'C': 1, u'gamma': u'au...</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{u'kernel': u'rbf', u'C': 1, u'gamma': u'auto'}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{u'kernel': u'sigmoid', u'C': 1, u'gamma': u'a...</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{u'kernel': u'linear', u'C': 1, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{u'kernel': u'rbf', u'C': 1, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>{u'kernel': u'sigmoid', u'C': 1, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>{u'kernel': u'linear', u'C': 1, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>{u'kernel': u'rbf', u'C': 1, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>{u'kernel': u'sigmoid', u'C': 1, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>{u'kernel': u'linear', u'C': 1, u'gamma': 0.5}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>{u'kernel': u'rbf', u'C': 1, u'gamma': 0.5}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>{u'kernel': u'sigmoid', u'C': 1, u'gamma': 0.5}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>{u'kernel': u'linear', u'C': 1, u'gamma': 1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>{u'kernel': u'rbf', u'C': 1, u'gamma': 1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>{u'kernel': u'sigmoid', u'C': 1, u'gamma': 1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>{u'kernel': u'linear', u'C': 5, u'gamma': u'au...</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>{u'kernel': u'rbf', u'C': 5, u'gamma': u'auto'}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>{u'kernel': u'sigmoid', u'C': 5, u'gamma': u'a...</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>{u'kernel': u'linear', u'C': 5, u'gamma': 0}</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>{u'kernel': u'rbf', u'C': 5, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>{u'kernel': u'sigmoid', u'C': 5, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>{u'kernel': u'linear', u'C': 5, u'gamma': 0.1}</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>{u'kernel': u'rbf', u'C': 5, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>{u'kernel': u'sigmoid', u'C': 5, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>{u'kernel': u'linear', u'C': 5, u'gamma': 0.5}</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>{u'kernel': u'rbf', u'C': 5, u'gamma': 0.5}</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>{u'kernel': u'sigmoid', u'C': 5, u'gamma': 0.5}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>{u'kernel': u'linear', u'C': 5, u'gamma': 1}</td>
+      <td>0.821542</td>
+      <td>[0.828282828283, 0.808510638298, 0.81632653061...</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>{u'kernel': u'rbf', u'C': 5, u'gamma': 1}</td>
+      <td>0.826116</td>
+      <td>[0.828282828283, 0.817204301075, 0.79569892473...</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>{u'kernel': u'sigmoid', u'C': 5, u'gamma': 1}</td>
+      <td>0.803200</td>
+      <td>[0.803921568627, 0.808080808081, 0.8, 0.787878...</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>{u'kernel': u'linear', u'C': 10, u'gamma': u'a...</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>{u'kernel': u'rbf', u'C': 10, u'gamma': u'auto'}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>{u'kernel': u'sigmoid', u'C': 10, u'gamma': u'...</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>{u'kernel': u'linear', u'C': 10, u'gamma': 0}</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>{u'kernel': u'rbf', u'C': 10, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>{u'kernel': u'sigmoid', u'C': 10, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>{u'kernel': u'linear', u'C': 10, u'gamma': 0.1}</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>{u'kernel': u'rbf', u'C': 10, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>{u'kernel': u'sigmoid', u'C': 10, u'gamma': 0.1}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>{u'kernel': u'linear', u'C': 10, u'gamma': 0.5}</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>{u'kernel': u'rbf', u'C': 10, u'gamma': 0.5}</td>
+      <td>0.829476</td>
+      <td>[0.828282828283, 0.817204301075, 0.8125, 0.838...</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>{u'kernel': u'sigmoid', u'C': 10, u'gamma': 0.5}</td>
+      <td>0.815578</td>
+      <td>[0.828282828283, 0.8125, 0.808080808081, 0.812...</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>{u'kernel': u'linear', u'C': 10, u'gamma': 1}</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>{u'kernel': u'rbf', u'C': 10, u'gamma': 1}</td>
+      <td>0.802314</td>
+      <td>[0.765957446809, 0.791208791209, 0.76923076923...</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>{u'kernel': u'sigmoid', u'C': 10, u'gamma': 1}</td>
+      <td>0.795238</td>
+      <td>[0.791666666667, 0.791208791209, 0.80808080808...</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>{u'kernel': u'linear', u'C': 100, u'gamma': u'...</td>
+      <td>0.802136</td>
+      <td>[0.777777777778, 0.786516853933, 0.80898876404...</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>{u'kernel': u'rbf', u'C': 100, u'gamma': u'auto'}</td>
+      <td>0.811456</td>
+      <td>[0.828282828283, 0.8, 0.808080808081, 0.8125, ...</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>{u'kernel': u'sigmoid', u'C': 100, u'gamma': u...</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>{u'kernel': u'linear', u'C': 100, u'gamma': 0}</td>
+      <td>0.802136</td>
+      <td>[0.777777777778, 0.786516853933, 0.80898876404...</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>{u'kernel': u'rbf', u'C': 100, u'gamma': 0}</td>
+      <td>0.811456</td>
+      <td>[0.828282828283, 0.8, 0.808080808081, 0.8125, ...</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>{u'kernel': u'sigmoid', u'C': 100, u'gamma': 0}</td>
+      <td>0.802387</td>
+      <td>[0.803921568627, 0.8, 0.8, 0.8, 0.808080808081]</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>{u'kernel': u'linear', u'C': 100, u'gamma': 0.1}</td>
+      <td>0.802136</td>
+      <td>[0.777777777778, 0.786516853933, 0.80898876404...</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>{u'kernel': u'rbf', u'C': 100, u'gamma': 0.1}</td>
+      <td>0.813407</td>
+      <td>[0.8125, 0.791208791209, 0.774193548387, 0.838...</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>{u'kernel': u'sigmoid', u'C': 100, u'gamma': 0.1}</td>
+      <td>0.831925</td>
+      <td>[0.828282828283, 0.817204301075, 0.82474226804...</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>{u'kernel': u'linear', u'C': 100, u'gamma': 0.5}</td>
+      <td>0.802136</td>
+      <td>[0.777777777778, 0.786516853933, 0.80898876404...</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>{u'kernel': u'rbf', u'C': 100, u'gamma': 0.5}</td>
+      <td>0.791491</td>
+      <td>[0.752941176471, 0.781609195402, 0.77272727272...</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>{u'kernel': u'sigmoid', u'C': 100, u'gamma': 0.5}</td>
+      <td>0.799021</td>
+      <td>[0.774193548387, 0.772727272727, 0.8125, 0.808...</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>{u'kernel': u'linear', u'C': 100, u'gamma': 1}</td>
+      <td>0.802136</td>
+      <td>[0.777777777778, 0.786516853933, 0.80898876404...</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>{u'kernel': u'rbf', u'C': 100, u'gamma': 1}</td>
+      <td>0.779562</td>
+      <td>[0.752941176471, 0.731707317073, 0.79545454545...</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>{u'kernel': u'sigmoid', u'C': 100, u'gamma': 1}</td>
+      <td>0.667026</td>
+      <td>[0.705882352941, 0.698795180723, 0.68965517241...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>best classifier parameters
+SVC(C=10, cache_size=200, class_weight=None, coef0=0.0,
   decision_function_shape=None, degree=3, gamma=&#39;auto&#39;, kernel=&#39;linear&#39;,
-  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  max_iter=-1, probability=False, random_state=42, shrinking=True,
   tol=0.001, verbose=False)
-Made predictions in 0.0027 seconds.
-Tuned model has a training F1 score of 0.8493.
+Made predictions in 0.0029 seconds.
+Tuned model has a training F1 score of 0.8288.
 Made predictions in 0.0009 seconds.
-Tuned model has a testing F1 score of 0.7943.
+Tuned model has a testing F1 score of 0.7919.
 </pre>
 </div>
 </div>
@@ -12687,7 +13101,7 @@ Tuned model has a testing F1 score of 0.7943.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: The final F1 score for training is 0.8493, and 0.7943 for testing. The final SVC model uses linear kernel with a C value of 0.1. The untuned model has F1 score for training is 0.8761, and 0.7838 for testing. Compared to the untuned model, which uses rbf kernel with a C value of 1, the tuned model after using GridSearch method has higher F1 score for testing though the training is lower. This suggests that the untuned model is likely to be more overfitted than the tuned model</strong></p>
+<p>**Answer: The final F1 score for training is 0.8288, and 0.7919 for testing. The final SVC model uses rbf kernel with a C value of 10, and gamma value of 0.0. The untuned model has F1 score for training is 0.8664, and 0.8052  for testing. Compared to the untuned model, which uses rbf kernel with a C value of 1, the tuned model after using GridSearch method actually has a lower F1 score for testing. This is interesting because the best estimator given by grid_search has a lower f1 score on the testing set than another estimator deemed as not as good as the best estimator from grid_search.</p>
 
 </div>
 </div>
