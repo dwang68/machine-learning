@@ -17,7 +17,7 @@ class LearningAgent(Agent):
         self.planner = RoutePlanner(self.env, self)  # Create a route planner
         self.valid_actions = self.env.valid_actions  # The set of valid actions
         self.count = 0
-        self.epsilon_decay_constant = 0.0078
+        self.epsilon_decay_constant = 0.0078 # pi/ (2 *number of trails) assume 200 training trials
         self.alpha_decay_constant = 0.0157 # pi/ (2 *number of trails) assume 100 training trials
 
         # Set parameters of the learning agent
@@ -49,8 +49,7 @@ class LearningAgent(Agent):
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
         if self.learning:
-            #self.epsilon = self.epsilon_decay_constant**self.count
-            #self.epsilon = 1.0 / self.count
+
             self.epsilon = math.cos(self.epsilon_decay_constant * self.count)
             self.epsilon = self.epsilon if self.epsilon >= 0 else 0
         elif testing:
@@ -111,14 +110,14 @@ class LearningAgent(Agent):
         #   Then, for each action available, set the initial Q-value to 0.0
         if state is not None and self.learning:
             if not state in self.Q:
-                #light is red
+                # light is red
                 if state[1] == "red":
-                    #If left approaching forward, agent should yield on turning right
+                    # If left approaching forward, agent should yield on turning right
                     if state[3] == "forward":
                         self.Q[state] = {None: 0}
                     else:
                         self.Q[state] = {None: 0, "right": 0}
-                #light is green
+                # light is green
                 else:
                     if state[2] == "forward" or state[2] == "right":
                         self.Q[state] = {None: 0, "forward": 0, "right": 0}
@@ -128,6 +127,13 @@ class LearningAgent(Agent):
                         self.Q[state] = {None: 0, "forward": 0, "left": 0, "right": 0}
         return
 
+    def get_best_action_by_q(self):
+        max_q = self.get_maxQ(self.state)
+        possible_actions = []
+        for a, qv in self.Q[self.state].iteritems():
+            if qv == max_q:
+                possible_actions.append(a)
+        return random.choice(possible_actions)
 
     def choose_action(self, state):
         """ The choose_action function is called when the agent is asked to choose
@@ -144,8 +150,7 @@ class LearningAgent(Agent):
         # When not learning, choose a random action
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
-        
-        #TODO: Simplify the logic here
+
         if state is None:
             return action
         if not self.learning:
@@ -156,10 +161,10 @@ class LearningAgent(Agent):
             if np.random.choice(2, 1, p=[1 - self.epsilon, self.epsilon])[0]:
                 action = random.sample(self.Q[state].keys(), 1)[0]
             else:
-                action = max(self.Q[state].iteritems(), key=operator.itemgetter(1))[0]
-        #testing trials
+                action = self.get_best_action_by_q()
+        # testing trials
         else:
-            action = max(self.Q[state].iteritems(), key=operator.itemgetter(1))[0]
+            action = self.get_best_action_by_q()
                 
         return action
 
@@ -175,17 +180,17 @@ class LearningAgent(Agent):
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if state is not None and self.learning:
-            #agent is already in next state after self.env.act() is called
-            next_state_inputs = self.env.sense(self)
-            next_state_waypoint = self.planner.next_waypoint()
-            next_state = (next_state_waypoint, next_state_inputs['light'], next_state_inputs['oncoming'],
-                          next_state_inputs['left'], next_state_inputs['right'])
-            next_state_maxQ = self.get_maxQ(next_state)
+            # agent is already in next state after self.env.act() is called
+            # The future reward should not be considered in q learning in this project
+            # next_state_inputs = self.env.sense(self)
+            # next_state_waypoint = self.planner.next_waypoint()
+            # next_state = (next_state_waypoint, next_state_inputs['light'], next_state_inputs['oncoming'],
+            #               next_state_inputs['left'], next_state_inputs['right'])
+            # next_state_maxQ = self.get_maxQ(next_state)
             #self.alpha = math.cos(self.alpha_decay_constant * self.count)
             self.Q[state][action] += self.alpha * (reward - self.Q[state][action])
                 
         return
-
 
     def update(self):
         """ The update function is called when a time step is completed in the 
