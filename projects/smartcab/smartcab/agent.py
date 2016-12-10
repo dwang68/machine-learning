@@ -17,7 +17,7 @@ class LearningAgent(Agent):
         self.planner = RoutePlanner(self.env, self)  # Create a route planner
         self.valid_actions = self.env.valid_actions  # The set of valid actions
         self.count = 0
-        self.epsilon_decay_constant = 0.0078 # pi/ (2 *number of trails) assume 200 training trials
+        self.epsilon_decay_constant = 0.0052 # pi/ (2 *number of trails) assume 300 training trials
         self.alpha_decay_constant = 0.0157 # pi/ (2 *number of trails) assume 100 training trials
 
         # Set parameters of the learning agent
