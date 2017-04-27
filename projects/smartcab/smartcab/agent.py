@@ -1,4 +1,3 @@
-from __future__ import division
 import random
 import math
 from environment import Agent, Environment
@@ -16,9 +15,6 @@ class LearningAgent(Agent):
         super(LearningAgent, self).__init__(env)     # Set the agent in the evironment 
         self.planner = RoutePlanner(self.env, self)  # Create a route planner
         self.valid_actions = self.env.valid_actions  # The set of valid actions
-        self.count = 0
-        self.epsilon_decay_constant = 0.0052 # pi/ (2 *number of trails) assume 300 training trials
-        self.alpha_decay_constant = 0.0157 # pi/ (2 *number of trails) assume 100 training trials
 
         # Set parameters of the learning agent
         self.learning = learning # Whether the agent is expected to learn
@@ -36,9 +32,7 @@ class LearningAgent(Agent):
         """ The reset function is called at the beginning of each trial.
             'testing' is set to True if testing trials are being used
             once training trials have completed. """
-        
-        # Record the trial number
-        self.count += 1
+
         # Select the destination as the new location to route to
         self.planner.route_to(destination)
         
@@ -48,14 +42,7 @@ class LearningAgent(Agent):
         # Update epsilon using a decay function of your choice
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
-        if self.learning:
 
-            self.epsilon = math.cos(self.epsilon_decay_constant * self.count)
-            self.epsilon = self.epsilon if self.epsilon >= 0 else 0
-        elif testing:
-            self.epsilon = 0
-            self.alpha = 0
-           
         return None
 
     def build_state(self):
@@ -71,18 +58,9 @@ class LearningAgent(Agent):
         ########### 
         ## TO DO ##
         ###########
-        # Set 'state' as a tuple of relevant data for the agent
-        # When learning, check if the state is in the Q-table
-        #   If it is not, create a dictionary in the Q-table for the current 'state'
-        #   For each action, set the Q-value for the state-action pair to 0
+        # Set 'state' as a tuple of relevant data for the agent        
+        state = None
 
-        # If the agent is already at destination, return None
-        if waypoint == None:
-            return None
-        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'], inputs['right'])
-        if not state in self.Q:
-            #TODO: Call createQ(self, state) here
-            self.createQ(state)
         return state
 
 
@@ -94,8 +72,9 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Calculate the maximum Q-value of all actions for a given state
-        self.createQ(state)
-        maxQ = max(self.Q[state].iteritems(), key=operator.itemgetter(1))[1]
+
+        maxQ = None
+
         return maxQ 
 
 
@@ -108,32 +87,9 @@ class LearningAgent(Agent):
         # When learning, check if the 'state' is not in the Q-table
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
-        if state is not None and self.learning:
-            if not state in self.Q:
-                # light is red
-                if state[1] == "red":
-                    # If left approaching forward, agent should yield on turning right
-                    if state[3] == "forward":
-                        self.Q[state] = {None: 0}
-                    else:
-                        self.Q[state] = {None: 0, "right": 0}
-                # light is green
-                else:
-                    if state[2] == "forward" or state[2] == "right":
-                        self.Q[state] = {None: 0, "forward": 0, "right": 0}
-                    elif state[2] == "left":
-                        self.Q[state] = {None: 0, "left": 0, "right": 0}
-                    else:
-                        self.Q[state] = {None: 0, "forward": 0, "left": 0, "right": 0}
+
         return
 
-    def get_best_action_by_q(self):
-        max_q = self.get_maxQ(self.state)
-        possible_actions = []
-        for a, qv in self.Q[self.state].iteritems():
-            if qv == max_q:
-                possible_actions.append(a)
-        return random.choice(possible_actions)
 
     def choose_action(self, state):
         """ The choose_action function is called when the agent is asked to choose
@@ -150,22 +106,7 @@ class LearningAgent(Agent):
         # When not learning, choose a random action
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
-
-        if state is None:
-            return action
-        if not self.learning:
-            action = random.sample(self.valid_actions, 1)[0]
-        elif self.learning and self.epsilon > 0:
-            # if we choose the action with the highest Q-value or randomly chose an action
-            # returns 1 if we want to explore for sure, and near 0 if we want to use 
-            if np.random.choice(2, 1, p=[1 - self.epsilon, self.epsilon])[0]:
-                action = random.sample(self.Q[state].keys(), 1)[0]
-            else:
-                action = self.get_best_action_by_q()
-        # testing trials
-        else:
-            action = self.get_best_action_by_q()
-                
+ 
         return action
 
 
@@ -179,18 +120,9 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        if state is not None and self.learning:
-            # agent is already in next state after self.env.act() is called
-            # The future reward should not be considered in q learning in this project
-            # next_state_inputs = self.env.sense(self)
-            # next_state_waypoint = self.planner.next_waypoint()
-            # next_state = (next_state_waypoint, next_state_inputs['light'], next_state_inputs['oncoming'],
-            #               next_state_inputs['left'], next_state_inputs['right'])
-            # next_state_maxQ = self.get_maxQ(next_state)
-            #self.alpha = math.cos(self.alpha_decay_constant * self.count)
-            self.Q[state][action] += self.alpha * (reward - self.Q[state][action])
-                
+
         return
+
 
     def update(self):
         """ The update function is called when a time step is completed in the 
@@ -202,6 +134,7 @@ class LearningAgent(Agent):
         action = self.choose_action(state)  # Choose an action
         reward = self.env.act(self, action) # Receive a reward
         self.learn(state, action, reward)   # Q-learn
+
         return
         
 
@@ -223,13 +156,13 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning=True)
+    agent = env.create_agent(LearningAgent)
     
     ##############
     # Follow the driving agent
     # Flags:
     #   enforce_deadline - set to True to enforce a deadline metric
-    env.set_primary_agent(agent, enforce_deadline=True)
+    env.set_primary_agent(agent)
 
     ##############
     # Create the simulation
@@ -238,14 +171,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=10, display=True, log_metrics=True, optimized=True)
+    sim = Simulator(env)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10, tolerance=0.5)
+    sim.run()
 
 
 if __name__ == '__main__':
