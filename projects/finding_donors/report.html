@@ -13357,21 +13357,21 @@ $$ F_{\beta} = (1 + \beta^2) \cdot \frac{precision \cdot recall}{\left( \beta^2 
 <p>**Answer:</p>
 <p>A. Logistic Regression</p>
 <ul>
-<li>Real-world application: Handwriting recognition (based on its non-linearity)</li>
-<li>Strengths: work with linearly and non-linearly separable problems </li>
-<li>When to use: when the features and results do not have a linear relationship</li>
-<li>Weaknesses: outcome needs to be dichotomous, </li>
-<li>When not to use: when the ideal solution is linear</li>
-<li>Why the model for this problem given data: In this case, logistic regression can build a good model because we are trying to predict a dichotomous outcomes</li>
+<li>Real-world application: Handwriting recognition</li>
+<li>Strengths: inference is fast, suitable for binary classification problems when the features and outcome </li>
+<li>When to use: When dependent variables are categorical, such as a binary classification problem</li>
+<li>Weaknesses: the decision surface of logistic regression is linear, therefore, it is error prone when the actual decision boundary is non-linear. </li>
+<li>When not to use: when the dataset has a non-linear decision boundary</li>
+<li>Why the model for this problem given data: Because the problem is a binary classification problem and could potentially have a linear decision boundary.</li>
 </ul>
 <p>B. Support Vector Machine</p>
 <ul>
 <li>Real-world application: Natural language processing</li>
 <li>Strengths: effective in high dimension space, memory efficient with support vectors, versatile with different kernel functions</li>
-<li>When to use: when you want a fast training algorithm that applies to high dimension space(with many features), and when you have a dataset with realtively low percentage of noise</li>
+<li>When to use: when you want a training algorithm that applies to high dimension space(with many features), and when you have a dataset with realtively low percentage of noise</li>
 <li>Weaknesses: when features are more than samples, tend to give poor performance, sensitive to outliers</li>
 <li>When not to use: when you want a really strong estimator and when you have more features than samples in the dataset</li>
-<li>Why the model for this problem given data: we have 48 features with 300 samples for training, so it is sufficient for SVM to perform well in the high dimension space</li>
+<li>Why the model for this problem given data: we have a lot more samples than features for training, so it is sufficient for SVM to perform well in the high dimension space</li>
 </ul>
 <p>C. Gaussian Naive Bayes</p>
 <ul>
@@ -13379,7 +13379,7 @@ $$ F_{\beta} = (1 + \beta^2) \cdot \frac{precision \cdot recall}{\left( \beta^2 
 <li>Strengths: Simple, fast to train, fast to run on test data, does not require a lot of data to calculate parameters because the decoupling of features</li>
 <li>When to use: when the noise model complies with Gaussian distribution, and features are independent, hence the naive part. </li>
 <li>Weaknesses: It is known to be a bad predictor for regression problem</li>
-<li>When not to use: regression problem and when features are clearly not independent</li>
+<li>When not to use: regression problem or when features are not conditionally independent given the target variable.</li>
 <li>Why the model for this problem given data: the features in the data are fairly independent and it is a classification problem.
 **</li>
 </ul>
@@ -14751,7 +14751,7 @@ kiRJUs+wECJJkiRJknqGhRBJkiRJktQz/n8lQwSaUadOuAAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Answer:</p>
 <p>We have identified a method that has selected certain demographic criteria and based on that we have found a method to predict whether their income is greater or below $50,000. This model has taken in available census data that had the correct income classification. We used a part of that data to build our model. This allowed us to determine which features had a strong impact on determining where the person's income was.</p>
-<p>Our team of experts have chosen Binomial Logistic Regression. Though this may sound like a very complicated name, but I promise that the method isn't complicated. What the method does really well is predicting two different outcome. Logistic regression estimates parameters based on the given data that are then fed to probability function,and the output is one of the binary outcomes. The parameters are estimated such that the likelihood of the observed data is the greatest. Using this method, we're able to get the parameters for our Logistic Regression model. This model can be then be used on data that is outside our observed data (Training data)
+<p>Our team of experts have chosen Binomial Logistic Regression. Though this may sound like a very complicated name, but I promise that the method isn't complicated. What the method does really well is predicting two different outcome. Logistic regression predicts the result based on the given features like education level and capital gain of an individual. The features are then fed to probability function,and the output is one of the binary outcomes. The parameters are estimated such that the likelihood of the observed data is the greatest. Using this method, we're able to get the parameters for our Logistic Regression model. This model can be then be used on data that is outside our observed data (Training data)
 When we tested our model on the data which we had not used to built our model (Test data), our model's predictied outcome and the data's classification were compared to gage how well our model fared. We feel that we have a robust model that is able to identify from a pool of people those that are earning more than $50,000</p>
 <p>Thanks for your time</p>
 <p>**</p>
@@ -14948,7 +14948,7 @@ Final F-score on the testing data: 0.7011
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Answer:</p>
-<p>The five features that I believe will be most important in order of importance are Education level, Hours Per Week, Age, Marital Status and Capital Gain.</p>
+<p>The five features that I believe will be most important in order of importance are Education level, Hours Per Week, Age, Marital Status and Capital Gain. The higher the education, the more likely one gets a high-paid job requiring advanced skillsets. Hours per Week is important because the longer you work, the more you get paid intuitively. Age is important as it implies expirence level. The marital status is important as it implies the stability of your job as married person tends to have a more stable job to support their family. Capital Gain is also important as it implies the networth.</p>
 <p>**</p>
 
 </div>
